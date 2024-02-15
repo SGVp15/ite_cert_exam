@@ -44,10 +44,7 @@ if __name__ == '__main__':
     while True:
         try:
             if time_file_modify == os.path.getmtime(FILE_XLSX):
-                print('')
-                for i in range(20):
-                    time.sleep(1)
-                    print(f'{i} ', end='')
+                time.sleep(20)
                 continue
         except Exception as e:
             print(e)
