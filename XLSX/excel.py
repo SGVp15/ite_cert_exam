@@ -3,9 +3,9 @@ import re
 from openpyxl import load_workbook
 
 from Contact import Contact
-from config import FILE_XLSX, PAGE_NAME, OUT_DIR
+from config import OUT_DIR
 from utils.translit import replace_month_to_number
-from .config import Columns as columns
+from .config import Columns, FILE_XLSX, PAGE_NAME
 
 
 def get_contact_from_excel() -> list[Contact]:
@@ -17,14 +17,14 @@ def get_contact_from_excel() -> list[Contact]:
     for row in range(2, file_excel[sheet_names[0]].max_row):
         contact = Contact()
         try:
-            contact.email = clean_export_excel(read_excel(file_excel, column=columns.email, row=row))
+            contact.email = clean_export_excel(read_excel(file_excel, column=Columns.email, row=row))
             if not re.search('@', contact.email):
                 continue
-            contact.number = int(clean_export_excel(read_excel(file_excel, column=columns.number, row=row)))
-            contact.abr_exam = clean_export_excel(read_excel(file_excel, column=columns.abr_exam, row=row))
-            contact.name_rus = clean_export_excel(read_excel(file_excel, column=columns.name_rus, row=row))
-            contact.name_eng = clean_export_excel(read_excel(file_excel, column=columns.name_eng, row=row))
-            contact.date_exam = clean_export_excel(read_excel(file_excel, column=columns.date_exam, row=row))
+            contact.number = int(clean_export_excel(read_excel(file_excel, column=Columns.number, row=row)))
+            contact.abr_exam = clean_export_excel(read_excel(file_excel, column=Columns.abr_exam, row=row))
+            contact.name_rus = clean_export_excel(read_excel(file_excel, column=Columns.name_rus, row=row))
+            contact.name_eng = clean_export_excel(read_excel(file_excel, column=Columns.name_eng, row=row))
+            contact.date_exam = clean_export_excel(read_excel(file_excel, column=Columns.date_exam, row=row))
             contact.template = contact.abr_exam + '.png'
 
         except Exception as e:
