@@ -7,14 +7,7 @@ EMAIL_PASSWORD = config['EMAIL_PASSWORD']
 FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ IT ЭКЗАМЕНОВ/ЭКЗАМЕНЫ ЦИФРОВОЙ ПУТЬ/Нумерация_Экзамены.xlsx'
 PAGE_NAME = 'Экзамены'
 
-columns = {
-    'Number': 'A',
-    'DateExam': 'B',
-    'AbrExam': 'C',
-    'NameRus': 'D',
-    'NameEng': 'E',
-    'Email': 'F',
-}
+
 
 # Куда отправлять Email:
 Emails_managers = (
