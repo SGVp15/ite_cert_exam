@@ -42,19 +42,4 @@ class Contact:
                 self.date_exam == other.date_exam
         ):
             return True
-        # else:
-        # print(f'self.Number\t{self.number == other.number}')
-        # print(f'self.AbrExam\t{self.abr_exam == other.abr_exam}')
-        # print(f'self.Email\t{self.email == other.email}')
-        # print(f'self.NameRus\t{self.name_rus == other.name_rus}')
-        # print(f'self.NameEng\t{self.name_eng == other.name_eng}')
-        # print(f'self.DateExam\t{self.date_exam == other.date_exam}')
-        # print(f'\n')
-        # print(f'self.Number\t{self.number= }\t{other.number}=')
-        # print(f'self.AbrExam\t{self.abr_exam= }\t{other.abr_exam}=')
-        # print(f'self.Email\t{self.email= }\t{other.email}=')
-        # print(f'self.NameRus\t{self.name_rus= }\t{other.name_rus}=')
-        # print(f'self.NameEng\t{self.name_eng= }\t{other.name_eng}=')
-        # print(f'self.DateExam\t{self.date_exam= }\t{other.date_exam}=')
-
         return False
