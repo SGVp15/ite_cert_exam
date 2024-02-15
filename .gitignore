@@ -1,0 +1,5 @@
+/.env
+/venv/
+.*
+/Email/template_email/
+/template/

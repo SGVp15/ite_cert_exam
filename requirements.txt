@@ -1,0 +1,4 @@
+python-dotenv
+Pillow
+openpyxl
+Jinja2
