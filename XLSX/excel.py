@@ -3,9 +3,9 @@ import re
 from openpyxl import load_workbook
 
 from Contact import Contact
-from config import OUT_DIR
+from config import OUT_DIR, FILE_XLSX
 from utils.translit import replace_month_to_number
-from .config import Columns, FILE_XLSX, PAGE_NAME
+from .config import Columns, PAGE_NAME
 
 
 def get_contact_from_excel() -> list[Contact]:
