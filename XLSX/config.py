@@ -1,7 +1,7 @@
 class Columns:
-    Number = 'A'
-    DateExam = 'B'
-    AbrExam = 'C'
-    NameRus = 'D'
-    NameEng = 'E'
-    Email = 'F'
+    number = 'A'
+    date_exam = 'B'
+    abr_exam = 'C'
+    name_rus = 'D'
+    name_eng = 'E'
+    email = 'F'

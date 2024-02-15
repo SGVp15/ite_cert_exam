@@ -17,29 +17,29 @@ def get_contact_from_excel() -> list[Contact]:
     for row in range(2, file_excel[sheet_names[0]].max_row):
         contact = Contact()
         try:
-            contact.email = clean_export_excel(read_excel(file_excel, column=columns.Email, row=row))
+            contact.email = clean_export_excel(read_excel(file_excel, column=columns.email, row=row))
             if not re.search('@', contact.email):
                 continue
-            contact.number = int(clean_export_excel(read_excel(file_excel, column=columns.Number, row=row)))
-            contact.abr_exam = clean_export_excel(read_excel(file_excel, column=columns.AbrExam, row=row))
-            contact.name_rus = clean_export_excel(read_excel(file_excel, column=columns.NameRus, row=row))
-            contact.name_eng = clean_export_excel(read_excel(file_excel, column=columns.NameEng, row=row))
-            contact.date_exam = clean_export_excel(read_excel(file_excel, column=columns.DateExam, row=row))
+            contact.number = int(clean_export_excel(read_excel(file_excel, column=columns.number, row=row)))
+            contact.abr_exam = clean_export_excel(read_excel(file_excel, column=columns.abr_exam, row=row))
+            contact.name_rus = clean_export_excel(read_excel(file_excel, column=columns.name_rus, row=row))
+            contact.name_eng = clean_export_excel(read_excel(file_excel, column=columns.name_eng, row=row))
+            contact.date_exam = clean_export_excel(read_excel(file_excel, column=columns.date_exam, row=row))
             contact.template = contact.abr_exam + '.png'
 
         except Exception as e:
             print(e)
             continue
         # Создаем папки по курсам
-        dir_name = f"{contact.date_exam}"
-        dir_name = dir_name.replace(' ', '')
-        dir_name = replace_month_to_number(dir_name)
-        dir_name = str('.'.join(dir_name.split('.')[::-1]))
-        contact.dir_name = dir_name
+        date_exam = f"{contact.date_exam}"
+        date_exam = date_exam.replace(' ', '')
+        date_exam = replace_month_to_number(date_exam)
+        date_exam = str('.'.join(date_exam.split('.')[::-1]))
+        contact.dir_name = date_exam
 
         certificate = 'Сертификат'
 
-        file_out_png = f"{OUT_DIR}{dir_name}/{certificate}_{dir_name}_" \
+        file_out_png = f"{OUT_DIR}{date_exam}/{certificate}_{date_exam}_" \
                        f"{contact.name_rus}_{contact.number}_{contact.email}.png"
 
         file_out_png = file_out_png.replace(' ', '_')
