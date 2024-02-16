@@ -1,5 +1,6 @@
-FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ IT ЭКЗАМЕНОВ/ЭКЗАМЕНЫ ЦИФРОВОЙ ПУТЬ/Нумерация_Экзамены.xlsx'
-OUT_DIR = './output/'
+_base_path = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ IT ЭКЗАМЕНОВ/ЭКЗАМЕНЫ ЦИФРОВОЙ ПУТЬ/'
+FILE_XLSX = _base_path + 'Нумерация_Экзамены.xlsx'
+OUT_DIR = '//192.168.20.100/общие папки/output'
 
 LOG_FILE = './log.txt'
 

@@ -15,8 +15,8 @@ def main():
 
     try:
         new_users = get_contact_from_excel()
-    except Exception as e:
-        print(e)
+    except FileNotFoundError:
+        print(f"File not found: {FILE_XLSX}")
         return
 
     try:
@@ -27,31 +27,33 @@ def main():
         print(e)
 
     for i, user in enumerate(new_users):
-        os.makedirs(OUT_DIR + user.dir_name, exist_ok=True)
+        os.makedirs(os.path.join(OUT_DIR, user.dir_name), exist_ok=True)
         create_png(user)
         print(f'[{i + 1}/{len(new_users)}]\t{user.file_out_png}')
     all_users = [*new_users, *old_users]
     pickle.dump(all_users, open(pickle_users, 'wb'))
 
 
-if __name__ == '__main__':
-    time_file_modify = ''
-
+def get_time_file_modify():
     try:
         time_file_modify = pickle.load(open(pickle_file_modify, 'rb'))
     except FileNotFoundError:
-        pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))
+        return ''
+    return time_file_modify
 
+
+if __name__ == '__main__':
     while True:
-        time_file_modify = pickle.load(open(pickle_file_modify, 'rb'))
+        time_file_modify = get_time_file_modify()
         try:
             if time_file_modify == os.path.getmtime(FILE_XLSX):
-                for i in range(60):
-                    progress(text='sleep ', percent=int(i * 100 / 60))
-                    time.sleep(1)
                 continue
         except Exception as e:
             print(e)
+        finally:
+            for i in range(60):
+                progress(text='sleep ', percent=int(i * 100 / 60))
+                time.sleep(.01)
         os.makedirs(OUT_DIR, exist_ok=True)
         try:
             main()

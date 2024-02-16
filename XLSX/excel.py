@@ -1,3 +1,4 @@
+import os
 import re
 
 from openpyxl import load_workbook
@@ -36,14 +37,12 @@ def get_contact_from_excel() -> list[Contact]:
         date_exam = replace_month_to_number(date_exam)
         date_exam = str('.'.join(date_exam.split('.')[::-1]))
         contact.dir_name = date_exam
-
+        os.makedirs(os.path.join(OUT_DIR, contact.dir_name), exist_ok=True)
         certificate = 'Сертификат'
 
-        file_out_png = f"{OUT_DIR}{date_exam}/{certificate}_{date_exam}_" \
+        file_out_png = f"{OUT_DIR}/{date_exam}/{certificate}_{date_exam}_" \
                        f"{contact.name_rus}_{contact.number}_{contact.email}.png"
 
-        file_out_png = file_out_png.replace(' ', '_')
-        file_out_png = replace_month_to_number(file_out_png)
         contact.file_out_png = file_out_png
 
         contacts.append(contact)

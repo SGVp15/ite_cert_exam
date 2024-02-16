@@ -1,6 +1,3 @@
-from time import sleep
-
-
 def progress(text='', percent=0, width=30):
     left = width * percent // 100
     right = width - left
