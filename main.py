@@ -53,7 +53,7 @@ if __name__ == '__main__':
         finally:
             for i in range(60):
                 progress(text='sleep ', percent=int(i * 100 / 60))
-                time.sleep(.01)
+                time.sleep(1)
         os.makedirs(OUT_DIR, exist_ok=True)
         try:
             main()
