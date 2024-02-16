@@ -6,6 +6,7 @@ from Contact import Contact
 from XLSX.excel import get_contact_from_excel
 from config import OUT_DIR, pickle_users, FILE_XLSX, pickle_file_modify
 from create_png import create_png
+from utils.Progress_bar import progress
 
 
 def main():
@@ -38,13 +39,16 @@ if __name__ == '__main__':
 
     try:
         time_file_modify = pickle.load(open(pickle_file_modify, 'rb'))
-    except Exception as e:
+    except FileNotFoundError:
         pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))
 
     while True:
+        time_file_modify = pickle.load(open(pickle_file_modify, 'rb'))
         try:
             if time_file_modify == os.path.getmtime(FILE_XLSX):
-                time.sleep(20)
+                for i in range(60):
+                    progress(text='sleep ', percent=int(i * 100 / 60))
+                    time.sleep(1)
                 continue
         except Exception as e:
             print(e)
