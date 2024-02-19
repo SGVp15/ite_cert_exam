@@ -7,7 +7,7 @@ from Email import EmailSending
 from XLSX.excel import get_contact_from_excel
 from config import OUT_DIR, pickle_users, FILE_XLSX, pickle_file_modify
 from create_png import create_png
-from utils.Progress_bar import show_progress
+from utils.Progress_bar import progress
 
 
 def main():
@@ -60,7 +60,7 @@ if __name__ == '__main__':
             print(e)
         finally:
             for i in range(60):
-                show_progress(text='sleep ', percent=int(i * 100 / 60))
+                progress(text='sleep ', percent=int(i * 100 / 60))
                 time.sleep(1)
         os.makedirs(OUT_DIR, exist_ok=True)
         try:
