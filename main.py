@@ -35,7 +35,7 @@ def main():
     files_cert = []
     for user in new_users:
         files_cert.append(user.file_out_png)
-    EmailSending(to='an.kuznetsov@itexpert.ru', cc=['g.savushkin@itexpert.ru,o.kuprienko@itexpert.ru'],
+    EmailSending(to='an.kuznetsov@itexpert.ru', cc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
                  subject='Сертификаты', files_path=files_cert).send_email()
 
     all_users = [*new_users, *old_users]
