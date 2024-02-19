@@ -33,9 +33,9 @@ def main():
         print(f'[{i + 1}/{len(new_users)}]\t{user.file_out_png}')
 
     files_cert = []
-    for i, user in enumerate(new_users):
+    for user in new_users:
         files_cert.append(user.file_out_png)
-    EmailSending(to=['g.savushkin@itexpert.ru', 'an.kuznetsov@itexpert.ru,o.kuprintko@itexpert.ru'],
+    EmailSending(to='an.kuznetsov@itexpert.ru,g.savushkin@itexpert.ru,o.kuprienko@itexpert.ru',
                  subject='Сертификаты', files_path=files_cert).send_email()
 
     all_users = [*new_users, *old_users]
