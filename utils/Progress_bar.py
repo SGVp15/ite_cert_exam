@@ -1,6 +1,4 @@
-def progress(text='', percent=0, width=30):
+def show_progress(text='', percent=0, width=20):
     left = width * percent // 100
     right = width - left
-    print(f"\r{text}[{'#' * left}{' ' * right}]",
-          f' {percent:.0f}%\t\t',
-          sep='', end='', flush=True)
+    print(f"\r{text}[{'#' * left}{' ' * right}] {percent:.0f}% ", end='', flush=True)
