@@ -8,8 +8,8 @@ from Email.config import EMAIL_LOGIN, EMAIL_PASSWORD, SMTP_SERVER, SMTP_PORT
 
 
 class EmailSending:
-    def __init__(self, files_path: list = None, subject='subject', from_email=EMAIL_LOGIN, to: list | str = '',
-                 cc: list | str = '', bcc: list | str = '',
+    def __init__(self, files_path: list = None, subject='subject', from_email=EMAIL_LOGIN, to:[str] = ['',],
+                 cc: [str] = ['',], bcc: [str] = ['',],
                  text='', html='', smtp_server=SMTP_SERVER, smtp_port=SMTP_PORT,
                  login=EMAIL_LOGIN, password=EMAIL_PASSWORD):
         """
@@ -40,20 +40,9 @@ class EmailSending:
         msg = MIMEMultipart()
         msg['From'] = self.from_email
         msg['Subject'] = self.subject
-        if type(self.to) == str:
-            msg['To'] = self.to
-        else:
-            msg['To'] = ','.join(self.to)
-
-        if type(self.cc) == str:
-            msg['Cc'] = self.cc
-        else:
-            msg['Cc'] = ','.join(self.cc)
-
-        if type(self.bcc) == str:
-            msg['Bcc'] = self.bcc
-        else:
-            msg['Bcc'] = ','.join(self.bcc)
+        msg['To'] = ','.join(self.to)
+        msg['Cc'] = ','.join(self.cc)
+        msg['Bcc'] = ','.join(self.bcc)
 
         msg.attach(MIMEText(self.text, 'plain'))
         msg.attach(MIMEText(self.html, 'html'))
