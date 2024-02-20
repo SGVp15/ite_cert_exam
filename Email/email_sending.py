@@ -8,7 +8,7 @@ from Email.config import EMAIL_LOGIN, EMAIL_PASSWORD, SMTP_SERVER, SMTP_PORT
 
 
 class EmailSending:
-    def __init__(self, files_path: list = None, subject='subject', from_email=EMAIL_LOGIN, to:[str] = ['',],
+    def __init__(self, files_path: list = None, subject='subject', from_email=EMAIL_LOGIN, to: [str] = ['',],
                  cc: [str] = ['',], bcc: [str] = ['',],
                  text='', html='', smtp_server=SMTP_SERVER, smtp_port=SMTP_PORT,
                  login=EMAIL_LOGIN, password=EMAIL_PASSWORD):

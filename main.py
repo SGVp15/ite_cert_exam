@@ -44,10 +44,10 @@ def main():
 
 def get_time_file_modify():
     try:
-        time_file_modify = pickle.load(open(pickle_file_modify, 'rb'))
+        info = pickle.load(open(pickle_file_modify, 'rb'))
     except FileNotFoundError:
         return ''
-    return time_file_modify
+    return info
 
 
 if __name__ == '__main__':

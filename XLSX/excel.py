@@ -40,7 +40,7 @@ def get_contact_from_excel() -> list[Contact]:
         os.makedirs(os.path.join(OUT_DIR, contact.dir_name), exist_ok=True)
         certificate = 'Сертификат'
 
-        file_out_png = f"{OUT_DIR}/{date_exam}/{certificate}_{date_exam}_" \
+        file_out_png = f"{OUT_DIR}/{date_exam}/{certificate}_{contact.abr_exam}_{date_exam}_" \
                        f"{contact.name_rus}_{contact.number}_{contact.email}.png"
 
         contact.file_out_png = file_out_png
