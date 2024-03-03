@@ -3,11 +3,12 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 import Contact
+from config import template_folder
 
 
 def create_png(contact: Contact):
     # Open an Image
-    img = Image.open(f'./template/{contact.template}')
+    img = Image.open(f'{template_folder}/{contact.template_folder}')
 
     image_draw = ImageDraw.Draw(img)
 
