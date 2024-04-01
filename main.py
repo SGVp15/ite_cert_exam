@@ -47,8 +47,8 @@ def main():
 Проверка пройдена, Вы успешно сдали экзамен {user.exam_rus}, поздравляем!
 Сертификат будет загружен в ЛК IT Expert в раздел "Мои экзамены" в течение недели.
 """
-        EmailSending(to=[user.email, ], bcc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
-                     subject=f'Экзамен "{user.abr_exam}" проверка пройдена', text=text).send_email()
+        # EmailSending(to=[user.email, ], bcc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
+        #              subject=f'Экзамен "{user.abr_exam}" проверка пройдена', text=text).send_email()
 
 
 def get_time_file_modify():
@@ -68,7 +68,7 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
         finally:
-            for i in range(60):
+            for i in range(30):
                 progress(text='sleep ', percent=int(i * 100 / 60))
                 time.sleep(1)
         os.makedirs(OUT_DIR, exist_ok=True)
