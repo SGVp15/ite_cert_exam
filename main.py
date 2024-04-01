@@ -25,7 +25,7 @@ def main():
         old_users = pickle.load(open(pickle_users, 'rb'))
         new_users = [user for user in new_users if user not in old_users]
     except Exception as e:
-        print(e)
+        print('[ 23 ] ', e)
 
     for i, user in enumerate(new_users):
         os.makedirs(os.path.join(OUT_DIR, user.dir_name), exist_ok=True)
