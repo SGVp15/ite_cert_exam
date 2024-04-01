@@ -69,7 +69,7 @@ if __name__ == '__main__':
         except Exception as e:
             print('main 66', e)
         finally:
-            _sleep_time= 5
+            _sleep_time = 60
             for i in range(_sleep_time):
                 progress(text='sleep ', percent=int(i * 100 / _sleep_time))
                 time.sleep(1)
