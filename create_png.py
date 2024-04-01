@@ -8,7 +8,7 @@ from config import template_folder
 
 def create_png(contact: Contact):
     # Open an Image
-    img = Image.open(f'{template_folder}/{contact.template_folder}')
+    img = Image.open(f'{template_folder}/{contact.template}')
 
     image_draw = ImageDraw.Draw(img)
 
