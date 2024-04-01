@@ -7,7 +7,7 @@ EMAIL_PASSWORD = config['EMAIL_PASSWORD']
 
 SMTP_SERVER = 'smtp.yandex.ru'
 SMTP_PORT = 465
-EMAILS_SELLER = ['g.savushkin@itexpert.ru','']
+EMAILS_SELLER = ['g.savushkin@itexpert.ru',]
 Emails_managers = (
     'p.moiseenko@itexpert.ru',
     'a.katkov@itexpert.ru',

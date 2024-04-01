@@ -42,6 +42,14 @@ def main():
     all_users = [*new_users, *old_users]
     pickle.dump(all_users, open(pickle_users, 'wb'))
 
+    for user in new_users:
+        text = f"""Добрый день, {user.name_rus}!
+Проверка пройдена, Вы успешно сдали экзамен "название экзамена на русском", поздравляем!
+Сертификат будет загружен в ЛК IT Expert в раздел "Мои экзамены" в течение недели.
+"""
+        EmailSending(to=[user.email, ], bcc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
+                     subject=f'Экзамен "{user.abr_exam}" проверка пройдена', text=text).send_email()
+
 
 def get_time_file_modify():
     try:

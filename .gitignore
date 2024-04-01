@@ -2,6 +2,6 @@
 /venv/
 .*
 /Email/template_email/
+/template/
 /output
 *.pk
-.png
