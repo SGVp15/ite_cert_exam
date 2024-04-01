@@ -47,6 +47,7 @@ def main():
 Проверка пройдена, Вы успешно сдали экзамен {user.exam_rus}, поздравляем!
 Сертификат будет загружен в ЛК IT Expert в раздел "Мои экзамены" в течение недели.
 """
+        print(text)
         # EmailSending(to=[user.email, ], bcc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
         #              subject=f'Экзамен "{user.abr_exam}" проверка пройдена', text=text).send_email()
 
