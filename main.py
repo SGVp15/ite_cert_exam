@@ -44,7 +44,7 @@ def main():
 
     for user in new_users:
         text = f"""Добрый день, {user.name_rus}!
-Проверка пройдена, Вы успешно сдали экзамен "название экзамена на русском", поздравляем!
+Проверка пройдена, Вы успешно сдали экзамен {user.exam_rus}, поздравляем!
 Сертификат будет загружен в ЛК IT Expert в раздел "Мои экзамены" в течение недели.
 """
         EmailSending(to=[user.email, ], bcc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
