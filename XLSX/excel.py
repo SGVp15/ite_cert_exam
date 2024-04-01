@@ -26,6 +26,7 @@ def get_contact_from_excel() -> list[Contact]:
             contact.name_rus = clean_export_excel(read_excel(file_excel, column=Columns.name_rus, row=row))
             contact.name_eng = clean_export_excel(read_excel(file_excel, column=Columns.name_eng, row=row))
             contact.date_exam = clean_export_excel(read_excel(file_excel, column=Columns.date_exam, row=row))
+            contact.exam_rus = clean_export_excel(read_excel(file_excel, column=Columns.name_rus_exam, row=row))
             contact.template = contact.abr_exam + '.png'
 
         except Exception as e:
