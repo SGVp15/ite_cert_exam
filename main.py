@@ -69,7 +69,7 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
         finally:
-            for i in range(30):
+            for i in range(10):
                 progress(text='sleep ', percent=int(i * 100 / 60))
                 time.sleep(1)
         os.makedirs(OUT_DIR, exist_ok=True)
