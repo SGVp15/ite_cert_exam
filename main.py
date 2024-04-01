@@ -45,7 +45,7 @@ def main():
 
     for user in new_users:
         text = f"""Добрый день, {user.name_rus}!
-Проверка пройдена, Вы успешно сдали экзамен {user.exam_rus}, поздравляем!
+Проверка пройдена, Вы успешно сдали экзамен "{user.exam_rus}", поздравляем!
 Сертификат будет загружен в ЛК IT Expert в раздел "Мои экзамены" в течение недели.
 """
         EmailSending(to=[user.email, ], bcc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
@@ -66,16 +66,14 @@ if __name__ == '__main__':
         try:
             if time_file_modify == os.path.getmtime(FILE_XLSX):
                 continue
-        except Exception as e:
-            print('main 66', e)
+        except FileNotFoundError as e:
+            print(e)
         finally:
             _sleep_time = 60
             for i in range(_sleep_time):
                 progress(text='sleep ', percent=int(i * 100 / _sleep_time))
                 time.sleep(1)
         os.makedirs(OUT_DIR, exist_ok=True)
-        try:
-            main()
-            pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))
-        except Exception as e:
-            print('main 76', e)
+
+        main()
+        pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))
