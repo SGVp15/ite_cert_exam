@@ -23,9 +23,10 @@ def main():
     try:
         user: Contact
         old_users = pickle.load(open(pickle_users, 'rb'))
-        new_users = [user for user in new_users if user not in old_users]
-    except Exception as e:
-        print('[ 23 ] ', e)
+    except FileNotFoundError as e:
+        print(e)
+
+    new_users = [user for user in new_users if user not in old_users]
 
     for i, user in enumerate(new_users):
         os.makedirs(os.path.join(OUT_DIR, user.dir_name), exist_ok=True)
@@ -67,7 +68,7 @@ if __name__ == '__main__':
             if time_file_modify == os.path.getmtime(FILE_XLSX):
                 continue
         except Exception as e:
-            print(e)
+            print('main 66', e)
         finally:
             for i in range(10):
                 progress(text='sleep ', percent=int(i * 100 / 60))
@@ -77,4 +78,4 @@ if __name__ == '__main__':
             main()
             pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))
         except Exception as e:
-            print(e)
+            print('main 76', e)
