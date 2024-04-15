@@ -14,11 +14,12 @@ def main():
     old_users = []
     new_users = []
 
-    try:
-        new_users = get_contact_from_excel()
-    except FileNotFoundError:
-        print(f"File not found: {FILE_XLSX}")
-        return
+    # try:
+    new_users = get_contact_from_excel()
+
+    # except FileNotFoundError:
+    #     print(f"File not found: {FILE_XLSX}")
+    #     return
 
     try:
         user: Contact
@@ -27,6 +28,9 @@ def main():
         print(e)
 
     new_users = [user for user in new_users if user not in old_users]
+
+    for contact in new_users:
+        os.makedirs(os.path.join(OUT_DIR, contact.dir_name), exist_ok=True)
 
     for i, user in enumerate(new_users):
         os.makedirs(os.path.join(OUT_DIR, user.dir_name), exist_ok=True)
@@ -52,7 +56,7 @@ def main():
                      subject=f'Экзамен "{user.abr_exam}" проверка пройдена', text=text).send_email()
 
 
-def get_time_file_modify():
+def get_time_file_modify_old():
     try:
         info = pickle.load(open(pickle_file_modify, 'rb'))
     except FileNotFoundError:
@@ -61,19 +65,21 @@ def get_time_file_modify():
 
 
 if __name__ == '__main__':
+    _sleep_time = 60
     while True:
-        time_file_modify = get_time_file_modify()
-        try:
-            if time_file_modify == os.path.getmtime(FILE_XLSX):
-                continue
-        except FileNotFoundError as e:
-            print(e)
-        finally:
-            _sleep_time = 60
+        while True:
+            time_file_modify = get_time_file_modify_old()
+            time_file_modify_now = 0
+            try:
+                time_file_modify_now = os.path.getmtime(FILE_XLSX)
+            except FileNotFoundError as e:
+                print(e)
+
+            if time_file_modify != time_file_modify_now:
+                break
             for i in range(_sleep_time):
                 progress(text='sleep ', percent=int(i * 100 / _sleep_time))
                 time.sleep(1)
-        os.makedirs(OUT_DIR, exist_ok=True)
 
         main()
         pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))

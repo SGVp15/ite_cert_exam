@@ -5,6 +5,8 @@ _base_path = os.path.join('//192.168.20.100', 'Administrative server', 'РАБО
 FILE_XLSX = os.path.join(_base_path, 'Нумерация_Экзамены.xlsx')
 OUT_DIR = os.path.join(_base_path, 'сертификаты')
 
+os.makedirs(OUT_DIR, exist_ok=True)
+
 LOG_FILE = './log.txt'
 
 pickle_users = './users.pk'

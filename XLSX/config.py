@@ -1,11 +1,12 @@
 class Columns:
-    number = 'A'
-    date_exam = 'B'
-    abr_exam = 'C'
-    name_rus = 'D'
-    name_eng = 'E'
-    email = 'F'
-    name_rus_exam = 'G'
+    # "№ сертификата	Дата экзамена	Курс	ФИО слушателя на русском	ФИО слушателя на латинице	email	Полное название	Английское название"
+    number = 1
+    date_exam = 2
+    abr_exam = 3
+    name_rus = 4
+    name_eng = 5
+    email = 6
+    name_rus_exam = 7
 
 
 PAGE_NAME = 'Экзамены'

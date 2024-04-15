@@ -34,7 +34,8 @@ class Contact:
         self.dir_name: str = dir_name
 
     def __eq__(self, other):
-        if (self.number == other.number and
+        if (
+                self.number == other.number and
                 self.abr_exam == other.abr_exam and
                 self.email == other.email and
                 self.name_rus == other.name_rus and

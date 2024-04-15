@@ -1,7 +1,7 @@
 import os
 import re
-
 from openpyxl import load_workbook
+import pandas as pd
 
 from Contact import Contact
 from config import OUT_DIR, FILE_XLSX
@@ -9,36 +9,28 @@ from utils.translit import replace_month_to_number
 from .config import Columns, PAGE_NAME
 
 
-def get_contact_from_excel() -> list[Contact]:
-    # Прочитать XLSX file -> [Contacts]
-    filename = FILE_XLSX
-    file_excel = load_workbook(filename=filename, data_only=True)
-    sheet_names = file_excel.sheetnames
+def get_contact_from_excel(filename=FILE_XLSX) -> list[Contact]:
+    df = pd.DataFrame(pd.read_excel(filename, sheet_name=0, ))
+    df = df.dropna()
     contacts = []
-    for row in range(2, file_excel[sheet_names[0]].max_row):
+    for row in df.values:
         contact = Contact()
-        try:
-            contact.email = clean_export_excel(read_excel(file_excel, column=Columns.email, row=row))
-            if not re.search('@', contact.email):
-                continue
-            contact.number = int(clean_export_excel(read_excel(file_excel, column=Columns.number, row=row)))
-            contact.abr_exam = clean_export_excel(read_excel(file_excel, column=Columns.abr_exam, row=row))
-            contact.name_rus = clean_export_excel(read_excel(file_excel, column=Columns.name_rus, row=row))
-            contact.name_eng = clean_export_excel(read_excel(file_excel, column=Columns.name_eng, row=row))
-            contact.date_exam = clean_export_excel(read_excel(file_excel, column=Columns.date_exam, row=row))
-            contact.exam_rus = clean_export_excel(read_excel(file_excel, column=Columns.name_rus_exam, row=row))
-            contact.template = contact.abr_exam + '.png'
+        # "№ сертификата	Дата экзамена	Курс	ФИО слушателя на русском	ФИО слушателя на латинице	email	Полное название	Английское название"
+        contact.number = int(clean_export_excel(row[0]))
+        contact.date_exam = clean_export_excel(row[1])
+        contact.abr_exam = clean_export_excel(row[2])
+        contact.name_rus = clean_export_excel(row[3])
+        contact.name_eng = clean_export_excel(row[4])
+        contact.email = clean_export_excel(row[5])
+        contact.exam_rus = clean_export_excel(row[6])
 
-        except Exception as e:
-            print(e)
-            continue
-        # Создаем папки по курсам
+        contact.template = contact.abr_exam + '.png'
         date_exam = f"{contact.date_exam}"
         date_exam = date_exam.replace(' ', '')
         date_exam = replace_month_to_number(date_exam)
         date_exam = str('.'.join(date_exam.split('.')[::-1]))
         contact.dir_name = date_exam
-        os.makedirs(os.path.join(OUT_DIR, contact.dir_name), exist_ok=True)
+
         certificate = 'Сертификат'
 
         file_out_png = f"{OUT_DIR}/{date_exam}/{certificate}_{contact.abr_exam}_{date_exam}_" \
@@ -47,18 +39,13 @@ def get_contact_from_excel() -> list[Contact]:
         contact.file_out_png = file_out_png
 
         contacts.append(contact)
-
     return contacts
 
 
-def read_excel(excel, column, row):
-    sheet_ranges = excel[PAGE_NAME]
-    return str(sheet_ranges[f'{column}{row}'].value)
-
-
 def clean_export_excel(s):
+    s = str(s)
     s = s.replace(',', ', ')
-    s = re.sub(r'\s{2,}', ' ', s)
+    # s = re.sub(r'\s{2,}', ' ', s)
     s = s.strip()
     if s in ('None', '#N/A'):
         s = ''
