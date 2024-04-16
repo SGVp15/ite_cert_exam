@@ -1,6 +1,3 @@
-import io
-import shutil
-
 import pandas as pd
 
 from Contact import Contact
@@ -9,11 +6,9 @@ from utils.translit import replace_month_to_number
 
 
 def get_contact_from_excel(filename=FILE_XLSX) -> list[Contact]:
-    temp_file = './temp.xlsx'
-    shutil.copyfile(filename, temp_file)
-
-    excel_file = pd.read_excel(temp_file, sheet_name=0, )
-    df = pd.DataFrame(excel_file)
+    with open(filename, 'rb') as f:
+        excel_file = pd.read_excel(f, sheet_name=0)
+        df = pd.DataFrame(excel_file)
     df = df.dropna()
     contacts = []
     for row in df.values:
