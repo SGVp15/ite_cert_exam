@@ -1,7 +1,10 @@
+import re
+
 import pandas as pd
 
 from Contact import Contact
 from config import OUT_DIR, FILE_XLSX
+from utils import logging
 from utils.translit import replace_month_to_number
 
 
@@ -43,7 +46,7 @@ def get_contact_from_excel(filename=FILE_XLSX) -> list[Contact]:
 def clean_export_excel(s):
     s = str(s)
     s = s.replace(',', ', ')
-    # s = re.sub(r'\s{2,}', ' ', s)
+    s = re.sub(r'\s{2,}', ' ', s)
     s = s.strip()
     if s in ('None', '#N/A'):
         s = ''

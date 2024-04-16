@@ -2,6 +2,8 @@ import os
 import pickle
 import time
 
+import logging
+
 from Contact import Contact
 from Email import EmailSending
 from XLSX.excel import get_contact_from_excel
@@ -9,23 +11,21 @@ from config import OUT_DIR, pickle_users, FILE_XLSX, pickle_file_modify
 from create_png import create_png
 from utils.Progress_bar import progress
 
+logging.basicConfig(level=logging.INFO, filename="log.txt", filemode="a",
+                    format="%(asctime)s %(levelname)s %(message)s")
+
 
 def main():
     old_users = []
     new_users = []
 
-    # try:
     new_users = get_contact_from_excel()
-
-    # except FileNotFoundError:
-    #     print(f"File not found: {FILE_XLSX}")
-    #     return
 
     try:
         user: Contact
         old_users = pickle.load(open(pickle_users, 'rb'))
     except FileNotFoundError as e:
-        print(e)
+        logging.exception(e)
 
     new_users = [user for user in new_users if user not in old_users]
 
@@ -36,6 +36,7 @@ def main():
         os.makedirs(os.path.join(OUT_DIR, user.dir_name), exist_ok=True)
         create_png(user)
         print(f'[{i + 1}/{len(new_users)}]\t{user.file_out_png}')
+        logging.info(f'[{i + 1}/{len(new_users)}]\t{user.file_out_png}')
 
     files_cert = []
     for user in new_users:
@@ -43,7 +44,8 @@ def main():
     if files_cert:
         EmailSending(to=['an.kuznetsov@itexpert.ru'], cc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
                      subject='Сертификаты', files_path=files_cert).send_email()
-
+        logging.info(
+            f"EmailSending to=['an.kuznetsov@itexpert.ru'], cc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru']")
     all_users = [*new_users, *old_users]
     pickle.dump(all_users, open(pickle_users, 'wb'))
 
@@ -54,6 +56,8 @@ def main():
 """
         EmailSending(to=[user.email, ], bcc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
                      subject=f'Экзамен "{user.abr_exam}" проверка пройдена', text=text).send_email()
+        logging.info(f'EmailSending {user.email}')
+        s
 
 
 def get_time_file_modify_old():
@@ -84,4 +88,4 @@ if __name__ == '__main__':
             main()
             pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))
         except Exception as e:
-            print(e)
+            logging.exception(e)
