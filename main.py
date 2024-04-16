@@ -80,6 +80,8 @@ if __name__ == '__main__':
             for i in range(_sleep_time):
                 progress(text='sleep ', percent=int(i * 100 / _sleep_time))
                 time.sleep(1)
-
-        main()
-        pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))
+        try:
+            main()
+            pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))
+        except Exception as e:
+            print(e)
