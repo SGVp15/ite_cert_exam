@@ -57,7 +57,6 @@ def main():
         EmailSending(to=[user.email, ], bcc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
                      subject=f'Экзамен "{user.abr_exam}" проверка пройдена', text=text).send_email()
         logging.info(f'EmailSending {user.email}')
-        s
 
 
 def get_time_file_modify_old():
