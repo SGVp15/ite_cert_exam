@@ -25,7 +25,7 @@ def main():
         user: Contact
         old_users = pickle.load(open(pickle_users, 'rb'))
     except FileNotFoundError as e:
-        logging.exception(e)
+        logging.error(e)
 
     new_users = [user for user in new_users if user not in old_users]
 
@@ -87,4 +87,4 @@ if __name__ == '__main__':
             main()
             pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))
         except Exception as e:
-            logging.exception(e)
+            logging.error(e)
