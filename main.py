@@ -56,7 +56,7 @@ def main():
 Сертификат будет загружен в ЛК IT Expert в раздел "Мои экзамены" в течение недели.
 """
         EmailSending(to=[user.email, ], bcc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
-                     subject=f'Экзамен "{user.abr_exam}" проверка пройдена', text=text).send_email()
+                     subject=f'Вы успешно сдали экзамен {user.abr_exam}.', text=text).send_email()
         time.sleep(1)
         logging.info(f'EmailSending {user.email}')
 
