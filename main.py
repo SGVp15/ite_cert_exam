@@ -41,6 +41,7 @@ def main():
     files_cert = []
     for user in new_users:
         files_cert.append(user.file_out_png)
+
     if files_cert:
         EmailSending(to=['an.kuznetsov@itexpert.ru'], cc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
                      subject='Сертификаты', files_path=files_cert).send_email()
@@ -63,7 +64,7 @@ def main():
 def get_time_file_modify_old():
     try:
         info = pickle.load(open(pickle_file_modify, 'rb'))
-    except FileNotFoundError:
+    except (FileNotFoundError, IOError):
         return ''
     return info
 
