@@ -56,6 +56,7 @@ def main():
 """
         EmailSending(to=[user.email, ], bcc=['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru'],
                      subject=f'Экзамен "{user.abr_exam}" проверка пройдена', text=text).send_email()
+        time.sleep(1)
         logging.info(f'EmailSending {user.email}')
 
 
@@ -75,7 +76,7 @@ if __name__ == '__main__':
             time_file_modify_now = 0
             try:
                 time_file_modify_now = os.path.getmtime(FILE_XLSX)
-            except FileNotFoundError as e:
+            except (FileNotFoundError, IOError) as e:
                 print(e)
 
             if time_file_modify != time_file_modify_now:

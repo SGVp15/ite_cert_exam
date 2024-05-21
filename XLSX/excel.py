@@ -4,7 +4,6 @@ import pandas as pd
 
 from Contact import Contact
 from config import OUT_DIR, FILE_XLSX
-from utils import logging
 from utils.translit import replace_month_to_number
 
 
