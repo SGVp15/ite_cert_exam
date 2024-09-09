@@ -2,15 +2,12 @@ import os
 import pickle
 import time
 
+from Email import EmailSending
 from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
-
-from Contact import Contact
-from Email import EmailSending
 from XLSX.excel import get_contact_from_excel
-from config import OUT_DIR, PICKLE_USERS, FILE_XLSX, PICKLE_FILE_MODIFY, EMAIL_BCC, EMAIL_WEB_MANAGER, SEND_EMAIL
+from config import OUT_DIR, PICKLE_USERS, PICKLE_FILE_MODIFY, EMAIL_BCC, EMAIL_WEB_MANAGER, SEND_EMAIL
 from create_png import create_png
-from UTILS.Progress_bar import progress
 
 
 @check_update_file_excel_decorator
