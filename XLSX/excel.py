@@ -4,7 +4,7 @@ import pandas as pd
 
 from Contact import Contact
 from config import OUT_DIR, FILE_XLSX
-from utils.translit import replace_month_to_number
+from UTILS.translit import replace_month_to_number
 
 
 def get_contact_from_excel(filename=FILE_XLSX) -> list[Contact]:
