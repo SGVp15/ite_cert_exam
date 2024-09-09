@@ -12,4 +12,4 @@ LOG_FILE = './log.txt'
 pickle_users = './users.pk'
 pickle_file_modify = './time_file_modify.pk'
 
-template_folder = './template'
+TEMPLATE_FOLDER = os.path.join(_base_path, 'templates')
