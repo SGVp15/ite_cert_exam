@@ -6,6 +6,7 @@ FILE_XLSX = os.path.join(BASE_PATH, 'Нумерация_Экзамены.xlsx')
 OUT_DIR = os.path.join(BASE_PATH, 'сертификаты')
 TEMPLATE_FOLDER = os.path.join(BASE_PATH, 'templates')
 
+SEND_EMAIL = True
 EMAIL_WEB_MANAGER = ['an.kuznetsov@itexpert.ru', ]
 EMAIL_BCC = ['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru', 'p.moiseenko@itexpert.ru']
 
@@ -15,3 +16,4 @@ LOG_FILE = './log.txt'
 
 PICKLE_USERS = './users.pk'
 PICKLE_FILE_MODIFY = './time_file_modify.pk'
+

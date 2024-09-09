@@ -8,7 +8,7 @@ from UTILS.log import log
 from Contact import Contact
 from Email import EmailSending
 from XLSX.excel import get_contact_from_excel
-from config import OUT_DIR, PICKLE_USERS, FILE_XLSX, PICKLE_FILE_MODIFY, EMAIL_BCC, EMAIL_WEB_MANAGER
+from config import OUT_DIR, PICKLE_USERS, FILE_XLSX, PICKLE_FILE_MODIFY, EMAIL_BCC, EMAIL_WEB_MANAGER, SEND_EMAIL
 from create_png import create_png
 from UTILS.Progress_bar import progress
 
@@ -49,20 +49,27 @@ def main():
     all_users = [*new_users, *old_users]
     pickle.dump(all_users, open(PICKLE_USERS, 'wb'))
 
-    for user in new_users:
-        text = f"""Добрый день, {user.name_rus}!
+    if SEND_EMAIL:
+        for user in new_users:
+            text = f"""Добрый день, {user.name_rus}!
 Проверка пройдена, Вы успешно сдали экзамен "{user.exam_rus}", поздравляем!
-Сертификат будет загружен в ЛК IT Expert в раздел "Мои экзамены" в течение недели.
-"""
-        try:
-            EmailSending(to=[user.email, ], bcc=EMAIL_BCC,
-                         subject=f'Вы успешно сдали экзамен {user.abr_exam}.', text=text).send_email()
-            log.info(
-                f"EmailSending to= {user.email},bcc={EMAIL_BCC}")
-        except Exception as e:
-            log.error(e)
+Сертификат будет загружен в ЛК IT Expert в раздел "Мои экзамены" в течение недели."""
 
-        time.sleep(1)
+            try:
+                EmailSending(to=[user.email, ], bcc=EMAIL_BCC,
+                             subject=f'Вы успешно сдали экзамен {user.abr_exam}.', text=text).send_email()
+                log.info(
+                    f"EmailSending to= {user.email},bcc={EMAIL_BCC}")
+                pass
+            except Exception as e:
+                log.error(e)
+
+            time.sleep(1)
+
+    if len(new_users) > 0:
+        all_users = [*new_users, *old_users]
+        pickle.dump(all_users, open(PICKLE_USERS, 'wb'))
+        log.info('[Create PICKLE_USERS]')
 
 
 def get_time_file_modify_old():
@@ -76,21 +83,5 @@ def get_time_file_modify_old():
 if __name__ == '__main__':
     _sleep_time = 60
     while True:
-        while True:
-            time_file_modify = get_time_file_modify_old()
-            time_file_modify_now = 0
-            try:
-                time_file_modify_now = os.path.getmtime(FILE_XLSX)
-            except (FileNotFoundError, IOError) as e:
-                print(e)
-
-            if time_file_modify != time_file_modify_now:
-                break
-            for i in range(_sleep_time):
-                progress(text='sleep ', percent=int(i * 100 / _sleep_time))
-                time.sleep(1)
-        try:
-            main()
-            pickle.dump(os.path.getmtime(FILE_XLSX), open(PICKLE_FILE_MODIFY, 'wb'))
-        except Exception as e:
-            log.error(e)
+        main()
+        time.sleep(_sleep_time)
