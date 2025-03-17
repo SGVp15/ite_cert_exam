@@ -3,6 +3,7 @@ import pickle
 import time
 
 from Email import EmailSending
+from UTILS.Progress_bar import progress
 from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
 from XLSX.excel import get_contact_from_excel
@@ -25,6 +26,7 @@ def main():
     for contact in new_users:
         os.makedirs(os.path.join(OUT_DIR, contact.dir_name), exist_ok=True)
 
+    # Create PNG
     for i, user in enumerate(new_users):
         os.makedirs(os.path.join(OUT_DIR, user.dir_name), exist_ok=True)
         create_png(user)
@@ -78,7 +80,9 @@ def get_time_file_modify_old():
 
 
 if __name__ == '__main__':
-    _sleep_time = 60
+    _SLEEP_TIME = 60
     while True:
         main()
-        time.sleep(_sleep_time)
+        for i in range(_SLEEP_TIME):
+            progress(text='sleep ', percent=int(i * 100 / _SLEEP_TIME))
+            time.sleep(1)

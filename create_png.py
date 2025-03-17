@@ -15,7 +15,7 @@ def create_png(contact: Contact):
     image_draw.text((647, 1220),
                     f'№ {contact.number:06}   {contact.date_exam}', font=my_font, fill=(16, 21, 84))
 
-    my_font = ImageFont.truetype('./fonts/Rubik/Rubik-Regular.ttf', 115)
+    my_font = ImageFont.truetype('./fonts/Rubik/Rubik-Regular.ttf', 115,)
     image_draw.text((round(0.59 * img.width), 1550),
                     f'{contact.name_rus}', font=my_font, fill=(16, 21, 84),
                     anchor='mm')
