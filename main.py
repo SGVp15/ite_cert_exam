@@ -3,6 +3,8 @@ import pickle
 import time
 
 from Email import EmailSending
+from Email.template import email_template
+from My_jinja import MyJinja
 from UTILS.Progress_bar import progress
 from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
@@ -50,9 +52,7 @@ def main():
 
     if SEND_EMAIL:
         for user in new_users:
-            text = f"""Добрый день, {user.name_rus}!
-Проверка пройдена, Вы успешно сдали экзамен "{user.exam_rus}", поздравляем!
-Сертификат будет загружен в ЛК IT Expert в раздел "Мои экзамены" в течение недели."""
+            text = MyJinja(template_file=email_template).render_document(user=user)
 
             try:
                 EmailSending(to=[user.email, ], bcc=EMAIL_BCC,
