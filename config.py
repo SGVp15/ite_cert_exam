@@ -8,7 +8,7 @@ TEMPLATE_FOLDER = os.path.join(BASE_PATH, 'templates')
 
 SEND_EMAIL = True
 EMAIL_WEB_MANAGER = ['an.kuznetsov@itexpert.ru', ]
-EMAIL_BCC = ['g.savushkin@itexpert.ru', 'o.kuprienko@itexpert.ru', 'p.moiseenko@itexpert.ru']
+EMAIL_BCC = ['exam@itexpert.ru', ]
 
 os.makedirs(OUT_DIR, exist_ok=True)
 
