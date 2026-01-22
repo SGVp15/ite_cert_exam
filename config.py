@@ -6,7 +6,7 @@ FILE_XLSX = os.path.join(BASE_PATH, 'Нумерация_Экзамены.xlsx')
 OUT_DIR = os.path.join(BASE_PATH, 'сертификаты')
 TEMPLATE_FOLDER = os.path.join(BASE_PATH, 'templates')
 
-SEND_EMAIL = True
+SEND_EMAIL = False
 EMAIL_WEB_MANAGER = ['an.kuznetsov@itexpert.ru', ]
 EMAIL_BCC = ['exam@itexpert.ru', ]
 
