@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
 
+import dateparser
 import pandas as pd
 
 from Contact import Contact
@@ -18,7 +19,7 @@ def get_contact_from_excel(filename=FILE_XLSX) -> list[Contact]:
         contact = Contact()
         # "№ сертификата	Дата экзамена	Курс	ФИО слушателя на русском	ФИО слушателя на латинице	email	Полное название	Английское название"
         contact.number = int(clean_export_excel(row[0]))
-        contact.date_exam = clean_export_excel(row[1])
+        contact.date_exam = dateparser.parse(clean_export_excel(row[1]))
         contact.abr_exam = clean_export_excel(row[2])
         contact.name_rus = clean_export_excel(row[3])
         contact.name_eng = clean_export_excel(row[4])
