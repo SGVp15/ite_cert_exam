@@ -1,18 +1,17 @@
-import os
+from pathlib import Path
 
-BASE_PATH = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА',
-                         'ОРГАНИЗАЦИЯ IT ЭКЗАМЕНОВ', 'ЭКЗАМЕНЫ ЦИФРОВОЙ ПУТЬ')
-FILE_XLSX = os.path.join(BASE_PATH, 'Нумерация_Экзамены.xlsx')
-OUT_DIR = os.path.join(BASE_PATH, 'сертификаты')
-TEMPLATE_FOLDER = os.path.join(BASE_PATH, 'templates')
+BASE_PATH = Path('//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ IT ЭКЗАМЕНОВ/ЭКЗАМЕНЫ ЦИФРОВОЙ ПУТЬ')
+
+FILE_XLSX = BASE_PATH / 'Нумерация_Экзамены.xlsx'
+OUT_DIR = BASE_PATH / 'сертификаты'
+TEMPLATE_FOLDER = BASE_PATH / 'templates'
 
 SEND_EMAIL = False
 EMAIL_WEB_MANAGER = ['an.kuznetsov@itexpert.ru', ]
 EMAIL_BCC = ['exam@itexpert.ru', ]
 
-os.makedirs(OUT_DIR, exist_ok=True)
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-LOG_FILE = './log.txt'
-
-PICKLE_USERS = './users.pk'
-PICKLE_FILE_MODIFY = './time_file_modify.pk'
+LOG_FILE = Path('./log.txt')
+PICKLE_USERS = Path('./users.pk')
+PICKLE_FILE_MODIFY = Path('./time_file_modify.pk')
