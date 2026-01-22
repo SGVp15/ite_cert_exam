@@ -1,6 +1,6 @@
-import os
 import pickle
 import time
+from pathlib import Path
 
 from Email import EmailSending
 from Email.template import email_template
@@ -26,11 +26,11 @@ def main():
     new_users = [user for user in new_users if user not in old_users]
 
     for contact in new_users:
-        os.makedirs(os.path.join(OUT_DIR, contact.dir_name), exist_ok=True)
+        Path(OUT_DIR / contact.dir_name).mkdir(parents=True, exist_ok=True)
 
     # Create PNG
     for i, user in enumerate(new_users):
-        os.makedirs(os.path.join(OUT_DIR, user.dir_name), exist_ok=True)
+        Path(OUT_DIR / user.dir_name).mkdir(parents=True, exist_ok=True)
         create_png(user)
         log.info(f'[{i + 1}/{len(new_users)}]\t{user.file_out_png}')
 

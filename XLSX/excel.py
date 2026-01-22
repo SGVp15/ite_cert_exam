@@ -1,4 +1,5 @@
 import re
+from pathlib import Path
 
 import pandas as pd
 
@@ -23,6 +24,12 @@ def get_contact_from_excel(filename=FILE_XLSX) -> list[Contact]:
         contact.name_eng = clean_export_excel(row[4])
         contact.email = clean_export_excel(row[5])
         contact.exam_rus = clean_export_excel(row[6])
+        contact.can_create_cert = clean_export_excel(row[11])
+        '''"Создать сертификат? 
+            1 - создать,
+            [пусто] - автоматически создается после 2 дней, 
+            9 - не создавать"
+        '''
 
         contact.template = contact.abr_exam + '.png'
         date_exam = f"{contact.date_exam}"
@@ -32,11 +39,9 @@ def get_contact_from_excel(filename=FILE_XLSX) -> list[Contact]:
         contact.dir_name = date_exam
 
         certificate = 'Сертификат'
-
-        file_out_png = f"{OUT_DIR}/{date_exam}/{certificate}_{contact.abr_exam}_{date_exam}_" \
-                       f"{contact.name_rus}_{contact.number}_{contact.email}.png"
-
-        contact.file_out_png = file_out_png
+        contact.file_out_png = Path({OUT_DIR} / {date_exam} /
+                                    f"{certificate}_{contact.abr_exam}_{date_exam}_" \
+                                    f"{contact.name_rus}_{contact.number}_{contact.email}.png")
 
         contacts.append(contact)
     return contacts
