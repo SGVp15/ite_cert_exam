@@ -9,7 +9,7 @@ from config import OUT_DIR, FILE_XLSX
 from UTILS.translit import replace_month_to_number
 
 
-def get_contact_from_excel(filename=FILE_XLSX) -> list[Contact]:
+def get_contact_from_cer_excel(filename=FILE_XLSX) -> list[Contact]:
     with open(filename, 'rb') as f:
         excel_file = pd.read_excel(f, sheet_name=0)
         df = pd.DataFrame(excel_file)
