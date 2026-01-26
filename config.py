@@ -1,14 +1,11 @@
 from pathlib import Path
 
-BASE_PATH = Path('//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ IT ЭКЗАМЕНОВ/ЭКЗАМЕНЫ ЦИФРОВОЙ ПУТЬ')
+BASE_PATH = Path(
+    '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ IT ЭКЗАМЕНОВ/ЭКЗАМЕНЫ ЦИФРОВОЙ ПУТЬ')
 
 FILE_XLSX = BASE_PATH / 'Нумерация_Экзамены.xlsx'
 OUT_DIR = BASE_PATH / 'сертификаты'
-TEMPLATE_FOLDER = BASE_PATH / 'templates'
-
-SEND_EMAIL = False
-EMAIL_WEB_MANAGER = ['an.kuznetsov@itexpert.ru', ]
-EMAIL_BCC = ['exam@itexpert.ru', ]
+TEMPLATE_FOLDER = BASE_PATH / 'template_cert_png'
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 

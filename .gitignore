@@ -2,7 +2,7 @@
 /venv/
 .*
 /Email/template_email/
-/template/
+/template_cert_png/
 /output
 *.pk
 /сертификаты/
