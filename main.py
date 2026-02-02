@@ -31,10 +31,10 @@ def load_old_users():
 @check_update_file_excel_decorator
 def main():
     old_users = load_old_users()
-
+    print(f'old_users: {len(old_users)}\n')
     new_users = get_contact_from_cer_excel()
     new_users = [user for user in new_users if user not in old_users]
-
+    print(f'new_users: {len(new_users)}\n')
     for contact in new_users:
         Path(OUT_DIR / contact.dir_name).mkdir(parents=True, exist_ok=True)
 
