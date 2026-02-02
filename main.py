@@ -1,12 +1,11 @@
 import pickle
 import time
-from pathlib import Path
 
 from UTILS.Progress_bar import progress
 from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
 from XLSX.excel import get_contact_from_cer_excel
-from config import OUT_DIR, PICKLE_USERS, PICKLE_FILE_MODIFY
+from config import PICKLE_USERS, PICKLE_FILE_MODIFY
 from create_png import create_png
 
 
@@ -36,7 +35,7 @@ def main():
     new_users = get_contact_from_cer_excel()
     new_users = [user for user in new_users if user not in old_users]
     print(f'new_users: {len(new_users)}\n')
-    
+
     for contact in new_users:
         contact.file_out_png.parent.mkdir(parents=True, exist_ok=True)
 
