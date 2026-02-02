@@ -6,10 +6,11 @@ from config import PICKLE_FILE_MODIFY, FILE_XLSX
 
 
 def get_time_modify_file():
+    info = ''
     try:
         info = pickle.load(open(PICKLE_FILE_MODIFY, 'rb'))
     except (FileNotFoundError, IOError):
-        return ''
+        pass
     return info
 
 

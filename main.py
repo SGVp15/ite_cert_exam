@@ -1,22 +1,13 @@
 import pickle
 import time
+from pathlib import Path
 
+from CertContact import CertContact
 from UTILS.Progress_bar import progress
-from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
 from XLSX.excel import get_contact_from_cer_excel
-from config import PICKLE_USERS, PICKLE_FILE_MODIFY
+from config import PICKLE_USERS, PICKLE_FILE_MODIFY, FILE_XLSX, SLEEP_SECONDS
 from create_png import create_png
-
-
-def create_png_all_user(new_users):
-    for i, user in enumerate(new_users):
-        try:
-            create_png(user)
-            log.info(f'[{i + 1}/{len(new_users)}]\t{user.file_out_png}')
-        except FileNotFoundError as e:
-            log.error(f'{e} [{i + 1}/{len(new_users)}]\t{user.file_out_png}')
-    pass
 
 
 def load_old_users():
@@ -28,7 +19,6 @@ def load_old_users():
     return old_users
 
 
-@check_update_file_excel_decorator
 def main():
     old_users = load_old_users()
     print(f'old_users: {len(old_users)}\n')
@@ -39,17 +29,17 @@ def main():
     for contact in new_users:
         contact.file_out_png.parent.mkdir(parents=True, exist_ok=True)
 
-    create_png_all_user(new_users)
+    successful_users = []
+    for i, contact in enumerate(new_users):
+        try:
+            create_png(contact)
+            log.info(f'[{i + 1}/{len(new_users)}]\t{contact.file_out_png}')
+            successful_users.append(contact)
+        except FileNotFoundError as e:
+            log.error(f'{e} [{i + 1}/{len(new_users)}]\t{contact.file_out_png}')
 
-    files_cert = []
-    for user in new_users:
-        files_cert.append(user.file_out_png)
-
-    all_users = [*new_users, *old_users]
-    pickle.dump(all_users, open(PICKLE_USERS, 'wb'))
-
-    if len(new_users) > 0:
-        all_users = [*new_users, *old_users]
+    if len(successful_users) > 0:
+        all_users = [*successful_users, *old_users]
         pickle.dump(all_users, open(PICKLE_USERS, 'wb'))
         log.info('[Create PICKLE_USERS]')
 
@@ -63,9 +53,14 @@ def get_time_file_modify_old():
 
 
 if __name__ == '__main__':
-    _SLEEP_TIME = 60
+    time_file_modify = 0
     while True:
-        main()
-        for i in range(_SLEEP_TIME):
-            progress(text='sleep ', percent=int(i * 100 / _SLEEP_TIME))
+        time_file_modify_now = Path(FILE_XLSX).stat().st_mtime
+
+        if time_file_modify != time_file_modify_now:
+            main()
+            time_file_modify = time_file_modify_now
+
+        for i in range(SLEEP_SECONDS):
+            progress(text='sleep ', percent=int(i * 100 / SLEEP_SECONDS))
             time.sleep(1)

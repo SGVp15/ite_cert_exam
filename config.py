@@ -14,5 +14,7 @@ LOG_FILE = Path('./log.txt')
 PICKLE_USERS = Path('./users.pk')
 PICKLE_FILE_MODIFY = Path('./time_file_modify.pk')
 
+SLEEP_SECONDS = 60
+
 # --- Excel --- Excel --- Excel --- Excel --- Excel --- Excel --- Excel ---
-SHEETNAME:str = 'Экзамены'
+SHEETNAME: str = 'Экзамены'
