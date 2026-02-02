@@ -58,7 +58,10 @@ if __name__ == '__main__':
         time_file_modify_now = Path(FILE_XLSX).stat().st_mtime
 
         if time_file_modify != time_file_modify_now:
-            main()
+            try:
+                main()
+            except Exception as e:
+                log.error(e)
             time_file_modify = time_file_modify_now
 
         for i in range(SLEEP_SECONDS):
