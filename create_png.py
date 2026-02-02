@@ -4,11 +4,11 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
-import Cert_Contact
+import CertContact
 from config import TEMPLATE_FOLDER
 
 
-def create_png(cert_contact: Cert_Contact):
+def create_png(cert_contact: CertContact):
     img = Image.open(f'{TEMPLATE_FOLDER}/{cert_contact.template}')
 
     image_draw = ImageDraw.Draw(img)
