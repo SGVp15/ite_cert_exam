@@ -8,6 +8,7 @@ OUT_DIR = BASE_PATH / 'сертификаты'
 TEMPLATE_FOLDER = BASE_PATH / 'template_cert_png'
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
+TEMPLATE_FOLDER.mkdir(parents=True, exist_ok=True)
 
 LOG_FILE = Path('./log.txt')
 PICKLE_USERS = Path('./users.pk')
