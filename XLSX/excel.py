@@ -5,46 +5,56 @@ import dateparser
 import pandas as pd
 
 from Contact import Contact
+from XLSX.my_excel import read_excel_file
 from config import OUT_DIR, FILE_XLSX
 from UTILS.translit import replace_month_to_number
+import openpyxl
 
 
 def get_contact_from_cer_excel(filename=FILE_XLSX) -> list[Contact]:
-    with open(filename, 'rb') as f:
-        excel_file = pd.read_excel(f, sheet_name=0)
-        df = pd.DataFrame(excel_file)
-    df = df.dropna()
+    # with open(filename, 'rb') as f:
+    #     excel_file = pd.read_excel(f, sheet_name=0)
+    #     df = pd.DataFrame(excel_file)
+    # df = df.dropna()
+    rows = read_excel_file(filename).get('Экзамены')
     contacts = []
-    for row in df.values:
+    for row in rows:
         contact = Contact()
         # "№ сертификата	Дата экзамена	Курс	ФИО слушателя на русском	ФИО слушателя на латинице	email	Полное название	Английское название"
-        contact.number = int(clean_export_excel(row[0]))
-        contact.date_exam = dateparser.parse(clean_export_excel(row[1]))
-        contact.abr_exam = clean_export_excel(row[2])
-        contact.name_rus = clean_export_excel(row[3])
-        contact.name_eng = clean_export_excel(row[4])
-        contact.email = clean_export_excel(row[5])
-        contact.exam_rus = clean_export_excel(row[6])
-        contact.can_create_cert = clean_export_excel(row[11])
-        '''"Создать сертификат? 
-            1 - создать,
-            [пусто] - автоматически создается после 2 дней, 
-            9 - не создавать"
-        '''
+        try:
+            contact.number = int(clean_export_excel(row[0]))
+            contact.date_exam = dateparser.parse(clean_export_excel(row[1]), settings={'DATE_ORDER': 'DMY'})
+            contact.abr_exam = clean_export_excel(row[2])
+            contact.name_rus = clean_export_excel(row[3])
+            contact.name_eng = clean_export_excel(row[4])
+            contact.email = clean_export_excel(row[5])
+            contact.exam_rus = clean_export_excel(row[6])
+        except (ValueError, IndexError):
+            continue
+        try:
+            contact.can_create_cert = clean_export_excel(row[11])
+            '''"Создать сертификат? 
+                1 - создать,
+                [пусто] - автоматически создается после 2 дней, 
+                9 - не создавать"
+            '''
+        except (ValueError, IndexError):
+            contact.can_create_cert = 0
+        try:
+            contact.template = contact.abr_exam + '.png'
+            date_exam = f"{contact.date_exam.strftime('%Y-%m-%d')}"
+            date_exam = date_exam.replace(' ', '')
+            date_exam = replace_month_to_number(date_exam)
+            date_exam = str('.'.join(date_exam.split('.')[::-1]))
+            contact.dir_name = date_exam
 
-        contact.template = contact.abr_exam + '.png'
-        date_exam = f"{contact.date_exam}"
-        date_exam = date_exam.replace(' ', '')
-        date_exam = replace_month_to_number(date_exam)
-        date_exam = str('.'.join(date_exam.split('.')[::-1]))
-        contact.dir_name = date_exam
-
-        certificate = 'Сертификат'
-        contact.file_out_png = Path({OUT_DIR} / {date_exam} /
-                                    f"{certificate}_{contact.abr_exam}_{date_exam}_" \
-                                    f"{contact.name_rus}_{contact.number}_{contact.email}.png")
-
-        contacts.append(contact)
+            contact.file_out_png = Path(OUT_DIR, contact.date_exam.strftime('%Y'),
+                                        contact.date_exam.strftime('%m'),
+                                        f"{contact.abr_exam}_{date_exam}_{contact.name_rus}"
+                                        f"_{contact.number}_{contact.email}.png")
+            contacts.append(contact)
+        except (ValueError, IndexError,AttributeError):
+            continue
     return contacts
 
 

@@ -2,3 +2,5 @@ python-dotenv
 Pillow
 Jinja2
 pandas
+dateparser
+openpyxl
