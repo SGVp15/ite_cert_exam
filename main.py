@@ -2,7 +2,6 @@ import pickle
 import time
 from pathlib import Path
 
-from CertContact import CertContact
 from UTILS.Progress_bar import progress
 from UTILS.log import log
 from XLSX.excel import get_contact_from_cer_excel
