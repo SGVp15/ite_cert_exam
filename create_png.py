@@ -4,7 +4,7 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
-import Contact
+import Cert_Contact
 from config import TEMPLATE_FOLDER
 
 

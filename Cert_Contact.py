@@ -18,7 +18,7 @@ class Contact_Template:
     dir_name: str
 
 
-class Contact:
+class Cert_Contact:
     def __init__(self, number: int = 0, abr_exam: str = '', email: str = '',
                  name_rus: str = '', name_eng: str = '', date_exam: datetime.datetime | None = None,
                  exam_rus: str = '', exam_eng: str = '', file_out_png: Path = '',
@@ -33,7 +33,6 @@ class Contact:
         self.exam_eng: str = exam_eng
         self.file_out_png: Path = file_out_png
         self.template: str = template
-        self.dir_name: str = dir_name
 
     def __eq__(self, other):
         if (

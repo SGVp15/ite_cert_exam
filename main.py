@@ -11,9 +11,7 @@ from create_png import create_png
 
 
 def create_png_all_user(new_users):
-    # Create PNG
     for i, user in enumerate(new_users):
-        Path(OUT_DIR / user.dir_name).mkdir(parents=True, exist_ok=True)
         try:
             create_png(user)
             log.info(f'[{i + 1}/{len(new_users)}]\t{user.file_out_png}')
@@ -38,6 +36,7 @@ def main():
     new_users = get_contact_from_cer_excel()
     new_users = [user for user in new_users if user not in old_users]
     print(f'new_users: {len(new_users)}\n')
+    
     for contact in new_users:
         contact.file_out_png.parent.mkdir(parents=True, exist_ok=True)
 
