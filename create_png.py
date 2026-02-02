@@ -8,22 +8,22 @@ import Cert_Contact
 from config import TEMPLATE_FOLDER
 
 
-def create_png(contact: Cert_Contact):
-    img = Image.open(f'{TEMPLATE_FOLDER}/{contact.template}')
+def create_png(cert_contact: Cert_Contact):
+    img = Image.open(f'{TEMPLATE_FOLDER}/{cert_contact.template}')
 
     image_draw = ImageDraw.Draw(img)
 
     Geometria_70 = ImageFont.truetype(Path('./fonts/Geometria/geometria_light.otf'), 70)
     image_draw.text((647, 1220),
-                    f'№ {contact.number:06}   {contact.date_exam}', font=Geometria_70, fill=(16, 21, 84))
+                    f'№ {cert_contact.number:06}   {cert_contact.date_exam}', font=Geometria_70, fill=(16, 21, 84))
 
     Rubik_115 = ImageFont.truetype(Path('./fonts/Rubik/Rubik-Regular.ttf'), 115, )
     image_draw.text((round(0.59 * img.width), 1550),
-                    f'{contact.name_rus}', font=Rubik_115, fill=(16, 21, 84),
+                    f'{cert_contact.name_rus}', font=Rubik_115, fill=(16, 21, 84),
                     anchor='mm')
 
     Rubik_70 = ImageFont.truetype('./fonts/Rubik/Rubik-Regular.ttf', 70)
     image_draw.text((round(0.59 * img.width), 1700),
-                    f'{contact.name_eng}', font=Rubik_70, fill=(16, 21, 84), anchor='mm')
+                    f'{cert_contact.name_eng}', font=Rubik_70, fill=(16, 21, 84), anchor='mm')
 
-    img.save(contact.file_out_png)
+    img.save(cert_contact.file_out_png)
