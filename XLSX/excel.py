@@ -2,20 +2,14 @@ import re
 from pathlib import Path
 
 import dateparser
-import pandas as pd
 
 from Contact import Contact
+from UTILS.translit import replace_month_to_number
 from XLSX.my_excel import read_excel_file
 from config import OUT_DIR, FILE_XLSX
-from UTILS.translit import replace_month_to_number
-import openpyxl
 
 
 def get_contact_from_cer_excel(filename=FILE_XLSX) -> list[Contact]:
-    # with open(filename, 'rb') as f:
-    #     excel_file = pd.read_excel(f, sheet_name=0)
-    #     df = pd.DataFrame(excel_file)
-    # df = df.dropna()
     rows = read_excel_file(filename).get('Экзамены')
     contacts = []
     for row in rows:
@@ -53,7 +47,7 @@ def get_contact_from_cer_excel(filename=FILE_XLSX) -> list[Contact]:
                                         f"{contact.abr_exam}_{date_exam}_{contact.name_rus}"
                                         f"_{contact.number}_{contact.email}.png")
             contacts.append(contact)
-        except (ValueError, IndexError,AttributeError):
+        except (ValueError, IndexError, AttributeError):
             continue
     return contacts
 
