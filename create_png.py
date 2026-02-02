@@ -8,7 +8,7 @@ import Cert_Contact
 from config import TEMPLATE_FOLDER
 
 
-def create_png(contact: Contact):
+def create_png(contact: Cert_Contact):
     img = Image.open(f'{TEMPLATE_FOLDER}/{contact.template}')
 
     image_draw = ImageDraw.Draw(img)
