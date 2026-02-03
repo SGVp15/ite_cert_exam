@@ -1,3 +1,4 @@
+import datetime
 from pathlib import Path
 
 from PIL import Image
@@ -15,7 +16,7 @@ def create_png(cert_contact: CertContact):
 
     Geometria_70 = ImageFont.truetype(Path('./fonts/Geometria/geometria_light.otf'), 70)
     image_draw.text((647, 1220),
-                    f'№ {cert_contact.number:06}   {cert_contact.date_exam}', font=Geometria_70, fill=(16, 21, 84))
+                    f'№ {cert_contact.number:06}   {cert_contact.date_exam.strftime('%d.%m.%Y')}', font=Geometria_70, fill=(16, 21, 84))
 
     Rubik_115 = ImageFont.truetype(Path('./fonts/Rubik/Rubik-Regular.ttf'), 115, )
     image_draw.text((round(0.59 * img.width), 1550),
