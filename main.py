@@ -1,3 +1,4 @@
+import datetime
 import pickle
 import time
 from pathlib import Path
@@ -23,6 +24,11 @@ def main():
     print(f'old_users: {len(old_users)}\n')
     new_users = get_contact_from_cer_excel()
     new_users = [user for user in new_users if user not in old_users]
+
+    new_users = [u for u in new_users
+                 if (datetime.datetime.now() >= u.date_exam + datetime.timedelta(days=2)
+                     or u.can_create_cert in (1, '1'))]
+
     print(f'new_users: {len(new_users)}\n')
 
     for contact in new_users:

@@ -45,9 +45,7 @@ def get_contact_from_cer_excel(filename=FILE_XLSX) -> list[CertContact]:
             log.error(f'No template file {cert_contact.template}')
             continue
 
-        if (datetime.datetime.now() >= cert_contact.date_exam + datetime.timedelta(days=2)
-                or cert_contact in (1, '1')):
-            cert_contacts.append(cert_contact)
+        cert_contacts.append(cert_contact)
     return cert_contacts
 
 

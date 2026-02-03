@@ -9,6 +9,7 @@ class CertContact:
                  name_rus: str = '', name_eng: str = '', date_exam: datetime.datetime | None = None,
                  exam_rus: str = '', exam_eng: str = '', file_out_png: Path = '',
                  template: str = ''):
+        self.can_create_cert = 0
         self.number = number
         self.abr_exam: str = abr_exam.upper()
         self.email: str = email.lower()
