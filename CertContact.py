@@ -1,7 +1,7 @@
 import datetime
 from pathlib import Path
 
-from config import OUT_DIR, TEMPLATE_FOLDER
+from config import DIR_CERTS, TEMPLATE_FOLDER
 
 
 class CertContact:
@@ -26,7 +26,7 @@ class CertContact:
         if not Path(TEMPLATE_FOLDER, self.template).exists():
             raise FileNotFoundError
         date_exam = f"{self.date_exam.strftime('%Y.%m.%d')}"
-        self.file_out_png = Path(OUT_DIR, self.date_exam.strftime('%Y'),
+        self.file_out_png = Path(DIR_CERTS, self.date_exam.strftime('%Y'),
                                  self.date_exam.strftime('%m'),
                                  f"{self.abr_exam}_{date_exam}_{self.name_rus}"
                                  f"_{self.number}_{self.email}.png")
