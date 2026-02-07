@@ -5,8 +5,8 @@ from pathlib import Path
 
 from UTILS.Progress_bar import progress
 from UTILS.log import log
-from XLSX.excel import get_contact_from_cer_excel
-from config import PICKLE_USERS, PICKLE_FILE_MODIFY, FILE_XLSX, SLEEP_SECONDS
+from XLSX.excel import get_contact_from_cert_excel
+from config import PICKLE_USERS, PICKLE_FILE_MODIFY, FILE_XLSX, SLEEP_SECONDS, DIR_CERTS
 from create_png import create_png
 
 
@@ -22,12 +22,16 @@ def load_old_users():
 def main():
     old_users = load_old_users()
     print(f'old_users: {len(old_users)}\n')
-    new_users = get_contact_from_cer_excel()
-    new_users = [user for user in new_users if user not in old_users]
+    users_from_cer_excel = get_contact_from_cert_excel()
+    print(f'excel_users: {len(users_from_cer_excel)}\n')
+    certs_files = [f for f in DIR_CERTS.rglob('*') if f.is_file() and f.suffix == '.png']
+    print(f'old_certs_files: {len(certs_files)}\n')
+    new_users = [user for user in users_from_cer_excel if user not in old_users]
 
     new_users = [u for u in new_users
                  if (datetime.datetime.now() >= u.date_exam + datetime.timedelta(days=2)
                      or u.can_create_cert in (1, '1'))]
+    new_users = [u for u in new_users if u.file_out_png not in certs_files]
 
     print(f'new_users: {len(new_users)}\n')
 

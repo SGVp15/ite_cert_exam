@@ -1,1 +1,1 @@
-from .excel import get_contact_from_cer_excel
+from .excel import get_contact_from_cert_excel

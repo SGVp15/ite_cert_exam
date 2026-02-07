@@ -9,7 +9,7 @@ from XLSX.my_excel import read_excel_file
 from config import FILE_XLSX, SHEETNAME
 
 
-def get_contact_from_cer_excel(filename=FILE_XLSX) -> list[CertContact]:
+def get_contact_from_cert_excel(filename=FILE_XLSX) -> list[CertContact]:
     rows = read_excel_file(filename).get(SHEETNAME)
     cert_contacts = []
     for row in rows:
@@ -30,7 +30,7 @@ def get_contact_from_cer_excel(filename=FILE_XLSX) -> list[CertContact]:
             continue
 
         try:
-            cert_contact.can_create_cert = clean_export_excel(row[11])
+            cert_contact.can_create_cert = clean_export_excel(row[10])
             '''"Создать сертификат? 
                 1 - создать,
                 [пусто] - автоматически создается после 2 дней, 
