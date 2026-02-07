@@ -25,7 +25,7 @@ class CertContact:
         self.template = self.abr_exam + '.png'
         if not Path(TEMPLATE_FOLDER, self.template).exists():
             raise FileNotFoundError
-        date_exam = f"{self.date_exam.strftime('%Y-%m-%d')}"
+        date_exam = f"{self.date_exam.strftime('%Y.%m.%d')}"
         self.file_out_png = Path(OUT_DIR, self.date_exam.strftime('%Y'),
                                  self.date_exam.strftime('%m'),
                                  f"{self.abr_exam}_{date_exam}_{self.name_rus}"
