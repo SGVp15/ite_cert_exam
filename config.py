@@ -4,7 +4,7 @@ BASE_PATH = Path(
     '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ IT ЭКЗАМЕНОВ/ЭКЗАМЕНЫ ЦИФРОВОЙ ПУТЬ')
 
 FILE_XLSX = BASE_PATH / 'Нумерация_Экзамены.xlsx'
-DIR_CERTS = BASE_PATH / 'сертификаты'
+DIR_CERTS = BASE_PATH / 'сертификат'
 TEMPLATE_FOLDER = BASE_PATH / 'template_cert_png'
 
 DIR_CERTS.mkdir(parents=True, exist_ok=True)
