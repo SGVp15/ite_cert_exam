@@ -61,7 +61,7 @@ def get_time_file_modify_old():
     return info
 
 
-if __name__ == '__main__':
+def sheduler_main_create_exam_cert():
     time_file_modify = 0
     while True:
         time_file_modify_now = Path(FILE_XLSX).stat().st_mtime
@@ -76,3 +76,7 @@ if __name__ == '__main__':
         for i in range(SLEEP_SECONDS):
             progress(text='sleep ', percent=int(i * 100 / SLEEP_SECONDS))
             time.sleep(1)
+
+
+if __name__ == '__main__':
+    sheduler_main_create_exam_cert()
